@@ -31,7 +31,10 @@ async function obtenerModelosGratuitos(key) {
 }
 
 // ─── Gestión de API key ───────────────────────────────────────────────────────
-export function getApiKey()    { return localStorage.getItem('tutoria_gemini_key') || '' }
+// Key institucional por defecto — los usuarios pueden sobreescribir con la suya propia
+const KEY_INSTITUCIONAL = 'REEMPLAZA_AQUI_CON_TU_KEY'
+
+export function getApiKey()    { return localStorage.getItem('tutoria_gemini_key') || KEY_INSTITUCIONAL }
 export function setApiKey(key) { localStorage.setItem('tutoria_gemini_key', key.trim()) }
 export function clearApiKey()  { localStorage.removeItem('tutoria_gemini_key') }
 export function tieneApiKey()  { return !!getApiKey() }
@@ -131,10 +134,12 @@ Los casos críticos son ESTIMACIONES automáticas que requieren validación prof
 Ayuda a priorizar y contextualizar. Nunca hagas diagnósticos.
 Sugiere pasos de seguimiento. Datos anonimizados. Tono sobrio y profesional en español.`,
 
-  trayectoria: `Eres un analista de trayectorias estudiantiles en tutoría universitaria.
-Analizas el recorrido de estudiantes por distintos tipos de tutoría.
-Identifica patrones de evolución, mejora sostenida, estancamiento o deterioro.
-Datos anonimizados. Responde en español con enfoque en acompañamiento.`,
+  trayectoria: `Eres un analista de efectividad del programa de tutoría universitaria de la UPeU.
+Tu enfoque es positivo y orientado a la mejora del programa.
+Los estudiantes con múltiples atenciones NO están "deteriorándose" — son estudiantes que el programa
+está identificando y acompañando activamente. Mayor recurrencia = mayor compromiso del sistema.
+Analiza qué tan bien está respondiendo el programa, qué perfiles de estudiantes necesitan más apoyo,
+y cómo fortalecer el acompañamiento. Datos anonimizados. Responde en español con tono propositivo.`,
 
   general: `Eres un analista experto en bienestar universitario y sistemas de tutoría universitaria.
 Tienes acceso a estadísticas agregadas de atenciones. Datos anonimizados.

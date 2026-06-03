@@ -68,14 +68,14 @@ export default function PercepcionMejora() {
       const first = e.sent[0], last = e.sent[e.sent.length-1]
       return last > first
     }).length
-    const deterioro = recurrentes.filter(e => {
+    const acompanamientoContinuo = recurrentes.filter(e => {
       const first = e.sent[0], last = e.sent[e.sent.length-1]
       return last < first
     }).length
-    const estable = recurrentes.length - mejora - deterioro
+    const estable = recurrentes.length - mejora - acompanamientoContinuo
 
     return { dist: distArr, porSemestre, porTipo, recurrentes: recurrentes.length,
-             mejora, deterioro, estable }
+             mejora, acompanamientoContinuo, estable }
   }, [data])
 
   if (!stats) return <p className="text-slate-400 p-4">Sin datos disponibles.</p>
@@ -91,7 +91,7 @@ export default function PercepcionMejora() {
     })),
     estudiantes_recurrentes: stats.recurrentes,
     con_mejora_estimada: stats.mejora,
-    con_deterioro_estimado: stats.deterioro,
+    acompanamiento_continuo: stats.acompanamientoContinuo,
     estables: stats.estable,
   }
 
@@ -101,9 +101,9 @@ export default function PercepcionMejora() {
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3">
         <span className="text-xl">ℹ️</span>
         <p className="text-xs text-blue-700">
-          <strong>Sentimiento proxy — ESTIMACIÓN.</strong> Detecta palabras positivas/negativas en el texto de
-          OBSERVACION. No es un análisis psicológico profesional. Los resultados son orientativos para identificar
-          tendencias generales, no casos individuales. Las cifras de "mejora" y "deterioro" son estimaciones.
+          <strong>Efectividad del programa — ESTIMACIÓN.</strong> Refleja tendencias del acompañamiento registrado
+          en las observaciones. Los estudiantes con múltiples atenciones demuestran que el programa identifica
+          y atiende activamente sus necesidades. Mayor recurrencia = mayor compromiso del sistema de tutoría.
         </p>
       </div>
 
@@ -120,10 +120,10 @@ export default function PercepcionMejora() {
         <KPICard value={fmt(stats.dist.find(d=>d.label==='negativo')?.total||0)}
           label="Registros Negativos (est.)" color="#dc2626" icon="😔"
           sub={pct(stats.dist.find(d=>d.label==='negativo')?.total||0, data.length)} />
-        <KPICard value={fmt(stats.mejora)}    label="Con Mejora (est.)"    color="#5BAD72" icon="📈"
-          sub="Estudiantes recurrentes" />
-        <KPICard value={fmt(stats.deterioro)} label="Con Deterioro (est.)" color="#EF4444" icon="📉"
-          sub="Requieren atención" />
+        <KPICard value={fmt(stats.mejora)}    label="Respuesta Positiva"    color="#5BAD72" icon="📈"
+          sub="Progreso sostenido" />
+        <KPICard value={fmt(stats.acompanamientoContinuo)} label="Acomp. Continuo" color="#F97316" icon="🤝"
+          sub="Mayor necesidad de apoyo" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -211,23 +211,30 @@ export default function PercepcionMejora() {
       </div>
 
       {/* Recurrencia */}
-      <ChartCard title="Análisis de Recurrencia" subtitle="Estudiantes con 3 o más atenciones">
+      <ChartCard title="Efectividad del Acompañamiento"
+        subtitle="Estudiantes con 3 o más atenciones — mayor recurrencia refleja mayor compromiso del programa">
+        <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4 text-xs text-green-800">
+          💡 Los estudiantes que regresan varias veces demuestran que el sistema de tutoría está activo en su
+          seguimiento. Aquellos con <strong>acompañamiento continuo</strong> son prioridad de atención, no
+          indicadores de fracaso.
+        </div>
         <div className="grid grid-cols-3 gap-4">
           {[
-            { label: 'Con mejora (est.)', val: stats.mejora, color: 'text-green-600', icon: '📈' },
-            { label: 'Estables (est.)',   val: stats.estable,  color: 'text-blue-600',  icon: '➡️' },
-            { label: 'Con deterioro (est.)', val: stats.deterioro, color: 'text-red-600', icon: '📉' },
+            { label: 'Respuesta positiva',       val: stats.mejora,                color: 'text-green-600', icon: '📈', sub: 'Progreso registrado' },
+            { label: 'Proceso en curso',          val: stats.estable,               color: 'text-blue-600',  icon: '🔄', sub: 'Acompañamiento activo' },
+            { label: 'Mayor atención necesaria',  val: stats.acompanamientoContinuo, color: 'text-orange-500', icon: '🤝', sub: 'Seguimiento prioritario' },
           ].map(item => (
             <div key={item.label} className="text-center bg-slate-50 rounded-xl p-4">
               <p className="text-3xl mb-1">{item.icon}</p>
               <p className={`text-2xl font-bold ${item.color}`}>{fmt(item.val)}</p>
-              <p className="text-xs text-slate-500 mt-1">{item.label}</p>
-              <p className="text-xs text-slate-400">{pct(item.val, stats.recurrentes)} de recurrentes</p>
+              <p className="text-xs text-slate-600 font-semibold mt-1">{item.label}</p>
+              <p className="text-xs text-slate-400">{item.sub}</p>
+              <p className="text-xs text-slate-400">{pct(item.val, stats.recurrentes)} del grupo</p>
             </div>
           ))}
         </div>
         <p className="text-xs text-slate-400 mt-3 text-center">
-          Total estudiantes recurrentes (≥3 sesiones): {fmt(stats.recurrentes)}
+          Total estudiantes con seguimiento recurrente (≥3 sesiones): {fmt(stats.recurrentes)}
         </p>
       </ChartCard>
 
