@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import { FiltersProvider } from './hooks/FiltersProvider'
 import { useData } from './hooks/useData'
 import Sidebar from './components/Sidebar'
@@ -62,10 +62,10 @@ function AppLayout() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <FiltersProvider>
         <AppLayout />
       </FiltersProvider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
