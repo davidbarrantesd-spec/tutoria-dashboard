@@ -9,27 +9,28 @@ import { calcularCriticidad } from './criticality'
 import { calcularSentimiento } from './sentiment'
 
 // ─── Configuración de archivos ────────────────────────────────────────────────
+const BASE = import.meta.env.BASE_URL  // '/' en dev, '/tutoria-dashboard/' en producción
 const FUENTES = [
   {
-    archivo: '/data/ATENCIONES_TUTORIA_DE_AULA.xlsx',
+    archivo: `${BASE}data/ATENCIONES_TUTORIA_DE_AULA.xlsx`,
     tipo_tutoria: 'aula',
     label: 'Tutoría de Aula',
     color: '#4F86C6',
   },
   {
-    archivo: '/data/ATENCIONES_TUTORIA_BIENESTAR_UNIVERSITARIO.xlsx',
+    archivo: `${BASE}data/ATENCIONES_TUTORIA_BIENESTAR_UNIVERSITARIO.xlsx`,
     tipo_tutoria: 'psicologica',
     label: 'Tutoría Psicológica',
     color: '#5BAD72',
   },
   {
-    archivo: '/data/ATENCION_TUTORIA_ESPIRITUAL.xlsx',
+    archivo: `${BASE}data/ATENCION_TUTORIA_ESPIRITUAL.xlsx`,
     tipo_tutoria: 'espiritual',
     label: 'Tutoría Espiritual',
     color: '#9B72CF',
   },
   {
-    archivo: '/data/ATENCION_TUTORIA_de_BIENESTAR_FISICO.xlsx',
+    archivo: `${BASE}data/ATENCION_TUTORIA_de_BIENESTAR_FISICO.xlsx`,
     tipo_tutoria: 'fisica',
     label: 'Tutoría Física / Nutrición',
     color: '#F4A261',
