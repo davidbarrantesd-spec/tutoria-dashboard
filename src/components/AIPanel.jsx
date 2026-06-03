@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { llamarGemini, getApiKey, prepararContexto, SYSTEM_PROMPTS } from '../lib/gemini'
 
 export default function AIPanel({ stats, tipo = 'general', titulo = 'Análisis IA' }) {
@@ -99,9 +100,13 @@ export default function AIPanel({ stats, tipo = 'general', titulo = 'Análisis I
 
           {respuesta && (
             <div className="space-y-3">
-              <div className="bg-white border border-violet-200 rounded-lg p-4 text-sm text-slate-700
-                              whitespace-pre-wrap leading-relaxed max-h-96 overflow-y-auto">
-                {respuesta}
+              <div className="bg-white border border-violet-200 rounded-lg p-5 text-sm text-slate-700
+                              max-h-[32rem] overflow-y-auto prose prose-sm prose-slate max-w-none
+                              prose-headings:text-violet-800 prose-headings:font-bold
+                              prose-h1:text-base prose-h2:text-sm prose-h3:text-sm
+                              prose-strong:text-slate-800 prose-li:my-0.5 prose-ul:my-1 prose-ol:my-1
+                              prose-hr:border-violet-200 prose-p:leading-relaxed">
+                <ReactMarkdown>{respuesta}</ReactMarkdown>
               </div>
 
               {/* Chat de seguimiento */}
