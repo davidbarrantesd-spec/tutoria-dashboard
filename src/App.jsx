@@ -6,6 +6,7 @@ import GlobalFilters from './components/GlobalFilters'
 import LoadingScreen from './components/LoadingScreen'
 import { lazy, Suspense } from 'react'
 
+const SobreTutoria          = lazy(() => import('./pages/SobreTutoria'))
 const ResumenEjecutivo      = lazy(() => import('./pages/ResumenEjecutivo'))
 const Derivaciones          = lazy(() => import('./pages/Derivaciones'))
 const PorTipoTutoria        = lazy(() => import('./pages/PorTipoTutoria'))
@@ -44,6 +45,7 @@ function AppLayout() {
             </div>
           }>
             <Routes>
+              <Route path="/sobre"         element={<SobreTutoria />} />
               <Route path="/"              element={<ResumenEjecutivo />} />
               <Route path="/derivaciones"  element={<Derivaciones />} />
               <Route path="/tipo-tutoria"  element={<PorTipoTutoria />} />

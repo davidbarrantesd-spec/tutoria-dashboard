@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useGlobalFilters } from '../hooks/useGlobalFilters'
 
 const NAV = [
+  { to: '/sobre',         icon: '🏛️', label: 'Sobre la Tutoría' },
   { to: '/',              icon: '📊', label: 'Resumen Ejecutivo' },
   { to: '/derivaciones',  icon: '🔀', label: 'Derivaciones' },
   { to: '/tipo-tutoria',  icon: '🎓', label: 'Por Tipo de Tutoría' },
