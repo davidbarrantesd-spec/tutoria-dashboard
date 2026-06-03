@@ -1,0 +1,1 @@
+function e(e){return e&&e.replace(/\b([A-ZÁÉÍÓÚÜÑ][a-záéíóúüñ]+(?:\s+[A-ZÁÉÍÓÚÜÑ][a-záéíóúüñ]+)+)\b/g,`[anónimo]`)}function t(e,t,n){return n?`EST-${t}`:e||`EST-${t}`}function n(t,n=300){if(!t)return`(sin observación registrada)`;let r=e(t);return r.length<=n?r:r.slice(0,n)+`…`}export{t as n,n as t};
