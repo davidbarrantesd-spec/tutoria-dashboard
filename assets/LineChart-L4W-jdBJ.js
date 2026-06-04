@@ -1,1 +1,0 @@
-import{i as e}from"./jsx-runtime-DUAcabCT.js";import{c as t}from"./index-CTTW2khR.js";import{B as n,r}from"./KPICard-akXw6W3-.js";var i=e(t()),a=[`axis`],o=(0,i.forwardRef)((e,t)=>i.createElement(r,{chartName:`LineChart`,defaultTooltipEventType:`axis`,validateTooltipEventTypes:a,tooltipPayloadSearcher:n,categoricalChartProps:e,ref:t}));export{o as t};
